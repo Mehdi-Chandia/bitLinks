@@ -1,0 +1,24 @@
+export const dynamic = "force-dynamic";
+
+import {redirect} from "next/navigation";
+import clientPromise from "@/app/api/lib/mongodb";
+
+export default async function Page({ params }) {
+    const { shorturl } = params;
+
+    const client = await clientPromise
+    const db=client.db("bitlinks")
+    const collection=db.collection("url")
+    const doc=await collection.findOne({shorturl:shorturl})
+    if(doc){
+        redirect(doc.url)
+    }
+    else{
+        redirect(process.env.NEXT_PUBLIC_HOST)
+    }
+
+
+    return <div>My post: {url}</div>
+
+
+}
