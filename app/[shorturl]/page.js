@@ -7,7 +7,7 @@ export default async function Page({ params }) {
     const { shorturl } = params;
 
     const client = await clientPromise
-    const db=client.db("bitlinks")
+    const db=client.db("bitlinks_db")
     const collection=db.collection("url")
     const doc=await collection.findOne({shorturl:shorturl})
     if(doc){
